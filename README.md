@@ -1,5 +1,11 @@
 ![Newsletter](https://user-images.githubusercontent.com/69332964/114803220-14269100-9d6d-11eb-9a3a-e92a637e5d79.png)
 
+## Bio
+
+My name is Oscar Romero and I am a former biopharma engineer transitioning into tech. I am currently enrolled online at LaunchSchool.com full-time to learn full-stack fundamentals. I really enjoy the intersection of software and hardware. I consider myself a maker and have messed with all sorts of stuff like building a pc/hackentosh, arduino, raspberry pi, LEDs, 3D printers. Honestly I just like having fun making and breaking things :)
+
+## Intro
+
 *Managing a server is pretty complicated, but building with serverless architectures simplifies this process. As a student, mastering serverless functions can help you to build projects that solve real-world problems by integrating APIs, constructing user interfaces, and analysing data. Javascript is the core language of this course - one of the most in-demand languages to learn in the industry.*
 
 #### :question: Not sure how to get started? Click [here](/GETTING_STARTED.md)! 
