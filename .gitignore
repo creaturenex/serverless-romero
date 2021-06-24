@@ -93,5 +93,4 @@ obj
 appsettings.json
 local.settings.json
 
-# history extension
-.history
+.history/
