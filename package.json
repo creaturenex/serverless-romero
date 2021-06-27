@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/creaturenex/serverless-romero#readme",
   "dependencies": {
+    "morse-code-converter": "^1.0.2",
     "node-fetch": "^2.6.1"
   }
 }
