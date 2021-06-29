@@ -1,0 +1,25 @@
+{
+  "name": "serverless-romero",
+  "version": "1.0.0",
+  "description": "![Newsletter](https://user-images.githubusercontent.com/69332964/114803220-14269100-9d6d-11eb-9a3a-e92a637e5d79.png)",
+  "main": "index.js",
+  "dependencies": {
+    "parse-multipart": "^1.0.0004",
+    "morse-code-converter": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creaturenex/serverless-romero.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/creaturenex/serverless-romero/issues"
+  },
+  "homepage": "https://github.com/creaturenex/serverless-romero#readme"
+}
