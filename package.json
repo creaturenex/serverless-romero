@@ -22,9 +22,8 @@
   "dependencies": {
     "awesome-dev-jokes": "^1.0.3",
     "morse-code-converter": "^1.0.2",
-    "multi-part": "^3.0.0",
     "node-fetch": "^2.6.1",
-    "parse": "^3.2.0",
+    "parse-multipart": "^1.0.4",
     "pig-latin": "^2.0.2"
   }
 }
