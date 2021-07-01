@@ -13,7 +13,7 @@ module.exports = async function (context, req) {
 
     const responseMessage = (convertedResult)
         ? convertedResult
-        : "Please post an image in the body";
+        : "Please post an image in the body"
 
         context.res = {
         // status: 200, /* Defaults to 200 */
