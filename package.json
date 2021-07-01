@@ -6,10 +6,7 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-<<<<<<< HEAD
-  "dependencies": {},
-  "devDependencies": {}
-=======
+
   "devDependencies": {},
   "main": "index.js",
   "repository": {
@@ -29,5 +26,4 @@
     "node-fetch": "^2.6.1",
     "pig-latin": "^2.0.2"
   }
->>>>>>> 4f71ac263bdf40ffaf5ff4e8a391c06a96e8ed9b
 }
