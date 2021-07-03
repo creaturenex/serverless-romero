@@ -34,14 +34,15 @@ module.exports = async function (context, req) {
 
     let result = await analyzeImage(imagedata);
 
-    const responseMessage = (result) ?
-        { result } :
-        "Please post an image in the body";
+    let emotions = result[0].faceAttributes.emotion;
+
+    let objects = Object.values(emotions)
+
+    const main_emotion = Object.keys(emotions).find(key => emotions[key] === Math.max(...objects));
 
     context.res = {
-        body: responseMessage
+        body: main_emotion
     };
 
-    console.log(result)
     context.done();
 }
