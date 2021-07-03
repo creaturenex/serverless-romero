@@ -77,7 +77,7 @@ module.exports = async function (context, req) {
     const queryObject = querystring.parse(req.body);
     let url = queryObject.MediaUrl0;
 
-    let image = await getImage();
+    let image = await getImage(url);
 
     let result = await analyzeImage(image);
 
@@ -87,7 +87,6 @@ module.exports = async function (context, req) {
     let generation = determineGen(age)
     console.log(generation)
 
-    // return generation?
     context.res = {
         body: generation
     };
