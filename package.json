@@ -1,7 +1,7 @@
 {
-  "name": "serverless-romero",
+  "name": "intro-to-serverless",
   "version": "1.0.0",
-  "description": "![Newsletter](https://user-images.githubusercontent.com/69332964/114803220-14269100-9d6d-11eb-9a3a-e92a637e5d79.png)",
+  "description": "",
   "scripts": {
     "start": "func start",
     "test": "echo \"No tests yet...\""
@@ -23,6 +23,7 @@
     "awesome-dev-jokes": "^1.0.3",
     "morse-code-converter": "^1.0.2",
     "node-fetch": "^2.6.1",
+    "parse-multipart": "^1.0.4",
     "pig-latin": "^2.0.2"
   }
 }
