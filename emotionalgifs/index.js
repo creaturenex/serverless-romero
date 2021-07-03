@@ -1,6 +1,17 @@
 const fetch = require('node-fetch');
 const multipart = require('parse-multipart');
 
+async function findGifs(emotion) {
+    const giphyKey = process.env.GIPHYAPIKEY;
+
+    const giphyResult = await fetch("https://api.giphy.com/v1/gifs/translate?api_key=" + giphyKey + "&s=" + emotion);
+
+    const giphyResp = await giphyResult.json();
+
+    return giphyResp.data.url;
+
+}
+
 async function analyzeImage(img) {
     const subscriptionKey = process.env.SUBSCRIPTIONKEY;
     const uriBase = process.env.ENDPOINT + '/face/v1.0/detect';
@@ -40,8 +51,10 @@ module.exports = async function (context, req) {
 
     const main_emotion = Object.keys(emotions).find(key => emotions[key] === Math.max(...objects));
 
+    let gifUrl = await findGifs(main_emotion);
+
     context.res = {
-        body: main_emotion
+        body: gifUrl
     };
 
     context.done();
