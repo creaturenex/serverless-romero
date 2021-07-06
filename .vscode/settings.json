@@ -4,8 +4,5 @@
     "azureFunctions.projectLanguage": "JavaScript",
     "azureFunctions.projectRuntime": "~3",
     "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.preDeployTask": "npm prune",
-    "cSpell.words": [
-        "SUBSCRIPTIONKEY"
-    ]
+    "azureFunctions.preDeployTask": "npm prune"
 }
