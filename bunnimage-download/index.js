@@ -3,10 +3,10 @@ const fetch = require('node-fetch');
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    var username = req.headers['username'];
-    var download = ""
-    var downloadpng = "https://romeroserverlessstorage.blob.core.windows.net/images/" + username + ".png";
-    var downloadjpg = "https://romeroserverlessstorage.blob.core.windows.net/images/" + username + ".jpeg";
+    let username = req.headers['username'];
+    let download = ""
+    let downloadpng = "https://romeroserverlessstorage.blob.core.windows.net/images/" + username + ".png";
+    let downloadjpg = "https://romeroserverlessstorage.blob.core.windows.net/images/" + username + ".jpeg";
 
 
     let pngresp = await fetch(downloadpng, {
