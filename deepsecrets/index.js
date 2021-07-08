@@ -59,7 +59,7 @@ module.exports = async function (context, req) {
     let items = await createDocument(document);
     context.log(items)
 
-    const responseMessage = `Thanks 😊! Your secret: "${message} was sent to the Cosmos!". 😯 Someone confessed that: ${JSON.stringify(items[0].message)}`
+    const responseMessage = `Thanks 😊! Stored your secret "${message}". 😯 Someone confessed that: ${JSON.stringify(items[0].message)}`
 
     context.res = {
         // status: 200, /* Defaults to 200 */
