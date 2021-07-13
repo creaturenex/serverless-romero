@@ -6,24 +6,12 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "devDependencies": {},
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creaturenex/serverless-romero.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/creaturenex/serverless-romero/issues"
-  },
-  "homepage": "https://github.com/creaturenex/serverless-romero#readme",
   "dependencies": {
-    "awesome-dev-jokes": "^1.0.3",
-    "morse-code-converter": "^1.0.2",
+    "@azure/cosmos": "^3.11.5",
+    "@azure/storage-blob": "^12.2.1",
     "node-fetch": "^2.6.1",
     "parse-multipart": "^1.0.4",
-    "pig-latin": "^2.0.2"
-  }
+    "querystring": "^0.2.1"
+  },
+  "devDependencies": {}
 }
