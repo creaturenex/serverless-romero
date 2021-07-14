@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "@azure/storage-blob": "^12.2.1",
+    "awesome-dev-jokes": "^1.0.3",
     "axios": "^0.21.1",
+    "morse-code-converter": "^1.0.2",
     "node-fetch": "^2.6.1",
-    "parse-multipart": "^1.0.4"
+    "parse-multipart": "^1.0.4",
+    "pig-latin": "^2.0.2"
   },
   "devDependencies": {}
 }

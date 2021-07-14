@@ -1,20 +1,21 @@
 const fetch = require('node-fetch')
 
-async function translate(toTranslate){
-    const url = "https://api.funtranslations.com/translate/mandalorian.json"
-
-    let text = await fetch((url + "?text=" + toTranslate), {
-        method: 'POST'})
-    return text
-}
-
-
 module.exports = async function (context, req) {
-    let transText = await translate("Danger");
 
+    const url = "https://api.funtranslations.com/translate/mandalorian.json"
+    console.log(url)
+
+    let translation = await fetch((url), {
+        method: 'POST',
+        headers: {
+            'text': "I'd like a pint of ale",
+        },
+        body: "",
+    })
+    console.log(translation)
 
     context.res = {
-        body: transText.json
+        body: translation
     };
 
     context.done();
