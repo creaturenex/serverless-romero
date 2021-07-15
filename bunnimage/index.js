@@ -7,7 +7,7 @@ async function getImage(event) {
       $('#output').text("Thanks!")
 
       console.log("Posting your image...");
-      const resp = await fetch("https://priscool.azurewebsites.net/api/w3s3?code=WXnJgVXmLh1VRmcNyZhyr9yy5GSu94iTuEsvSI0chEoHmWazwBK/dg==", {
+      const resp = await fetch("https://romeroserverless.azurewebsites.net/api/bunnimage-upload", {
           method: 'POST',
           headers: {
               'codename' : document.getElementById("username").value
