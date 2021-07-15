@@ -32,14 +32,14 @@ async function downloadImage(event) {
     let dlform = document.getElementById("downloadform")
     let dlpayload = new FormData(dlform);
     console.log(dlpayload)
-    if (document.getElementById("downloadUsername").value != '') {
+    if (document.getElementById("downloadusername").value != '') {
         $('#output').text("Thanks!")
 
         console.log("Grabbing your image...");
         const resp = await fetch("https://romeroserverless.azurewebsites.net/api/bunnimage-download", {
             method: 'GET',
             headers: {
-                'username' : document.getElementById("downloadUsername").value
+                'username' : document.getElementById("downloadusername").value
             },
         });
 
