@@ -1,35 +1,28 @@
-function getImage() {
+async function getImage(event) {
   event.preventDefault()
-  if (document.getElementById("name").value != '') {
-    $('#output').text("Thanks!")
-  } else {
-    alert("No name error.")
-  }
+  var myform = document.getElementById("myform")
+  var payload = new FormData(myform);
+  console.log(payload)
+  if (document.getElementById("username").value != '') {
+      $('#output').text("Thanks!")
 
-  let bunniForm = document.getElementById("submitImage");
+      console.log("Posting your image...");
+      const resp = await fetch("https://priscool.azurewebsites.net/api/w3s3?code=WXnJgVXmLh1VRmcNyZhyr9yy5GSu94iTuEsvSI0chEoHmWazwBK/dg==", {
+          method: 'POST',
+          headers: {
+              'codename' : document.getElementById("username").value
+          },
+          body: payload
+      });
 
-  //At this point in time the form data has no image as we are only creating it
-  let payload = new FormData(bunniForm);
-
-
-  //Where is fileInput from/assigned? Per instructions its saying get the first file from fileInput
-  // fileInput is the file upload input element
-  const file = bunniForm.files[0];
-
-  payload.append("file", file);
-
-  try {
-    const response = await fetch(resource, {
-      method: 'POST',
-      body: '',
-      headers: {
-        'image': 'file'
+      try {
+          var data = await resp.text();
+          console.log(data);
+          $('#output').text("Your image has been stored successfully!")
+      } catch (e) {
+          alert("Backend error!")
       }
-    });
-    console.log(response)
-    context.log(response)
-  } catch (e) {
-    let errorMessage = "An error has occurred and now the dumpster on fire"
-    console.log(errorMessage) && context.log(errorMessage)
+  } else {
+      alert("No name error.")
   }
 }
