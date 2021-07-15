@@ -3,22 +3,28 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
+    <title>Bunnimage!</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="./script.js"></script>
   </body>
-  <body>
+  <body><center>
       <div class="container h-mt-5">
           <div class="c-well">
               <h1 id="h1">Bunnimage 🐇</h1>
                   <form id="myform" onsubmit="getImage(event)" enctype="multipart/form-data">
                     <input class="label" type="file"  accept="image/x-png,image/jpeg" name="image"></input>
                     <input id="username" type="text" class="c-form-input" placeholder="Enter your file's name">
+                    <input id="button1" class="c-btn c-btn--primary" type="submit" value="Submit Your Picture 📷"></input>
+                  </form>
                     <br></br>
-                    <input class="c-btn c-btn--primary" type="submit" value="Submit Your Picture 📷"></input>
+                    <form id="downloadform" onsubmit="downloadImage(event)" enctype="multipart/form-data">
+                    <!input class="label" type="file"  accept="image/x-png,image/jpeg" name="image"><!/input>
+                    <input id="downloadUsername" type="text" class="c-form-input" placeholder="Name of the file to download">
+                    <input id="button2" class="c-btn c-btn--primary" type="submit" value="download image ⬇️"></input>
+
                 </form>
               <br/>
               <div id="output" class="h-mb-4"></div>
@@ -26,5 +32,6 @@
           </div>
         </div>
         <p style="text-align: center;">Bitprj © 2021</p>
+        </center>
     </body>
 </html>
