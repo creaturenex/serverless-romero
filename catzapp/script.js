@@ -1,7 +1,7 @@
 async function y1k3s() {
   event.preventDefault()
 
-  let url = "https://cataas.com/cat/gif/says/"
+  let url = "https://cataas.com/cat/says/"
 
   let name = document.getElementById('username').value
 
