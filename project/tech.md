@@ -1,32 +1,35 @@
 # Technologies
 
-### Azure Services
+## Azure Services
+
 **Azure Function**
-- To perform the Application workload/ computational
+- To perform the computational workload for the application
 
 **AzureBlob**
-- store image online as API uses URL to read image
-  - is this required? I can just store the url
+- Image sent via Twilio will be upload to blob
+- Blob Image URL will be used by Computer Vision for analysis
 
 **Computer Vision**
 - Computer Vision is meant to extract text from a card image which will be used to as parameters sent to the MTG API
-- Comuter Vision AI will get the image from Twilio Webhook through the azure function that will then be forward directly to the Computer Vision AI. Text will then be returned and pass to the MTG API to return relevant card prices and build a deck online.
-- created a computer vision resource so that our function can forward the image for processing using a CV endpoint and key
+- Computer Vision AI will get the image from Twilio Webhook through the azure function that will then be forward directly to the Computer Vision AI. Text will then be returned and pass to the MTG API to return relevant card prices and build a deck online
 - The endpoint and url were configured as process accessible variables within the magic vision function
 
-**CosmoDB**
-- store user information?
- - as of right now I can just return the current value of a card in text message but need to build up the online card functionality, doesn't require a DB
-- need to outline this
-  if user ID matches add all relevant card scans to user ID
-  the online deck would pull all relevant card info
--
+**CosmoDB** - **This is a major issue how do we tackle this?**
+ - **NOT** required right now as I can return the current value of a card in text message but I need to build up the online card functionality
+- What data am I interested in?
+  - User ID unique identifier
+    - store each card information
+    - name
+    - deck color
+    - card flavor text
+    - Mana Cost
+    - card type
+  - Card market value
+    - collect new market value everyday?
+    - trend data
 
-**FUTURE GOAL**
-- Azure Mobile App
-  - create ios/android dedicated app
-- Handle multiple cards in one image?
-### APIs
+
+## APIs
 
 **Name of API**
 - Twilio - SMS Webhook
@@ -35,22 +38,49 @@
   - a powerful Magic: The Gathering card search that also included current market values for cards
 
 
+## Packages/Libraries/Databases
 
-### Packages/Libraries/Databases
-pending
+Per Azure Computer Vision Documentation
 
-**Name of Packages/Library/Database**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+**@azure/cognitiveservices-computervision for node.js**
+- provides methods to interact with the computer vision client
 
-### Front-end Languages
+**async for node.js**
+- provides functions for working with asynchronous JavaScript
+
+> **NOTE: Possible Uses, I have not determined yet**
+> - **@azure/cosmos**
+>   - to provide functions to interact with Azure Cosmo DB
+> - **@azure/storage-blob**
+>   - to provide functions to interact with Azure Blob Storage
+> - **node-fetch**
+>   - to provide functions that allow fetching HTTP request
+> - **parse-multipart**
+>   - to provide functions to breakdown multipart/form data? Ask Emily!
+> - **querystring**
+>   - to provide functions to parse given URL
+
+## Front-end Languages
 
 **Name of Language**
 - Javascript
     - Language used to control azure function
-- [include how it will interact with other components of your project listed above/below]
+- HTML/CSS
+  - Bootstrap - **This will take some time**
+    - I want to create an online deck where you can view your cards, how many you own and current market price
 
-### Flowchart
+## Flowchart
 
 still working on this
 [Replace with image of final flowchart]
+
+## Resources
+ - [Azure Computer Vision Documentation](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/quickstarts-sdk/client-library?tabs=visual-studio&pivots=programming-language-javascript)
+ - [Example of GET method to Scryfall API](https://api.scryfall.com/cards/named?exact="AdultGoldDragon")
+
+
+## FUTURE GOALS
+- Azure Mobile App
+  - create ios/android dedicated app
+- Handle multiple cards in one image
+- Need to figure out how to handle multiple users
