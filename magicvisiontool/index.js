@@ -1,99 +1,125 @@
-'use strict';
+const fetch = require('node-fetch');
+const querystring = require('querystring');
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-const querystring = require('querystring'); //twilio
-const async = require('async');
-const fs = require('fs');
-const https = require('https');
-const path = require("path");
-const createReadStream = require('fs').createReadStream
-const sleep = require('util').promisify(setTimeout);
-const ComputerVisionClient = require('@azure/cognitiveservices-computervision').ComputerVisionClient;
-const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
+const KEY = process.env.MAGICVISIONAIKEY;
+const MV_ENDPOINT = 'https://magicvisionai.cognitiveservices.azure.com/vision/v3.2/read/analyze'
+const SCRYFALL = 'https://api.scryfall.com/cards/named?fuzzy='
+
+function syncDelay(milliseconds) {
+    var start = new Date().getTime();
+    var end = 0;
+    while ((end - start) < milliseconds) {
+        end = new Date().getTime();
+    }
+}
 
 module.exports = async function (context, req) {
-    const key = process.env.MAGICVISIONAIKEY;
-    const endpoint = process.env.MAGICVISIONAIENDPOINT;
+    context.log('JavaScript HTTP trigger function processed a request.');
 
-    const computerVisionClient = new ComputerVisionClient(new ApiKeyCredentials({
-        inHeader: {
-            'Ocp-Apim-Subscription-Key': key
+    /// Function to parse Image Url from SMS
+    const queryObject = querystring.parse(req.body);
+    let smsImageUrl = queryObject.MediaUrl0
+    context.log("Image sent via Twilio")
+
+
+    // Function to send imageUrl for analysis
+    let res_mv_endpoint = await fetch(MV_ENDPOINT, {
+        method: 'POST',
+        body: JSON.stringify({
+            "url": smsImageUrl
+        }),
+        headers: {
+            'Content-Type': "application/json",
+            'Ocp-Apim-Subscription-Key': KEY
         }
-    }), endpoint);
+    })
 
-    function computerVision(imageUrl) {
-        async.series([
-            async function () {
+    let resultUrl = res_mv_endpoint.headers.get('operation-location')
 
-                    const STATUS_SUCCEEDED = "succeeded";
-                    const STATUS_FAILED = "failed"
 
-                    // Recognize text in printed image from a URL
-                    context.log('Read printed text from URL...', imageUrl.split('/').pop());
-                    const printedResult = await readTextFromURL(computerVisionClient, imageUrl);
-                    printRecText(printedResult);
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    let text = ''
+    var times = 5;
+    for (var i = 0; i < times; i++) {
+        context.log("<<<<<<<<<<>>>>>>>>>>")
 
-                    // Perform read and await the result from URL
-                    async function readTextFromURL(client, url) {
-                        // To recognize text in a local image, replace client.read() with readTextInStream() as shown:
-                        let result = await client.read(url);
-                        context.log(result)
+        // Function to read the analysis text
+        let res_resultUrl = await fetch(resultUrl, {
+            method: 'GET',
+            headers: {
+                'Ocp-Apim-Subscription-Key': KEY
+            }
+        })
 
-                        // Operation ID is last path segment of operationLocation (a URL)
-                        let operation = result.operationLocation.split('/').slice(-1)[0];
-                        context.log(operation)
+        // This was super annoying to figure out, need to call it repeatably before a successful response is done.
+        text = await res_resultUrl.text();
 
-                        // Wait for read recognition to complete
-                        // result.status is initially undefined, since it's the result of read
-                        while (result.status !== STATUS_SUCCEEDED) {
-                            await sleep(1000);
-                            result = await client.getReadResult(operation);
-                        }
-                        return result.analyzeResult.readResults;
-                        // Return the first page of result.
-                    }
+        context.log(text)
+        context.log(`Called ${i + 1} times`)
 
-                    // Prints all text from Read result
-                    function printRecText(readResults) {
+        read_status = JSON.parse(text).status
+        //readStatus = json
+        syncDelay(2000)
 
-                        context.log('Recognized text:');
-                        for (const page in readResults) {
-                            if (readResults.length > 1) {
-                                context.log(`==== Page: ${page}`);
-                            }
-                            const result = readResults[page];
-                            if (result.lines.length) {
-                                context.log('<<<' + result.lines[0].text + '>>>') //<<<<<<<<<<<<< I want this!!!!(result.lines[0].text) return this so I can access it and pass it as an argument to Scryfall with a simple fetch function
-                                for (const line of result.lines) {
-                                    context.log(line.words.map(w => w.text).join(' '));
-                                }
-                            } else {
-                                context.log('No recognized text.');
-                            }
-                        }
-                    }
-
-                },
-                function () {
-                    return new Promise((resolve) => {
-                        resolve();
-                    })
-                }
-        ], (err) => {
-            throw (err);
-        });
+        if (read_status === 'succeeded') {
+            break;
+        }
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     }
 
+    context.log("<<<<<<<<<<>>>>>>>>>>")
+    // Parses out the card title
+    let json = JSON.parse(text)
+    title = json.analyzeResult.readResults[0].lines[0].text
+    context.log(`Probably Card Title: ${title}`)
 
-    // twilio section
+    context.log("<<<<<<<<<<>>>>>>>>>>")
 
-    context.log('JavaScript HTTP trigger function processed a request.');
-    const queryObject = querystring.parse(req.body);
-    let cardUrl = queryObject.MediaUrl0
 
-    computerVision(cardUrl) //scoping issues we think! how to access result in nested function
+    // Function to return card value from Scryfall
+    let final = await fetch(SCRYFALL + title, {
+        method: 'GET',
+    })
+    //context.log(final)
+    context.log("<<<<<<<<<<>>>>>>>>>>")
+
+    let card = await final.text()
+    let cardinfo = JSON.parse(card)
+
+    context.log(cardinfo)
+    context.log("<<<<<<<<<<>>>>>>>>>>")
+
+    let price = cardinfo.prices.usd
+    context.log(price)
+    context.log("<<<<<<<<<<>>>>>>>>>>")
+
+    let image = cardinfo.image_uris.normal
+    context.log('Url of card image')
+    context.log(image)
+    // context.log("<<<<<<<<<<>>>>>>>>>>")
+
+    let purchase = cardinfo.purchase_uris.tcgplayer
+    context.log('trading market')
+    context.log(purchase)
+
+    // context.log(`Current Market Value: ${price} USD`)
+    // context.log("<<<<<<<<<<>>>>>>>>>>")
+
+
+    const response = new MessagingResponse();
+    const message = response.message();
+    message.media(image);
+    message.body('Current Market Value ' + price + ' USD');
+    message.body(purchase);
 
     context.res = {
-        body: 'Image scanned' //responseMessage
+        status: 200,
+        body: response.toString(),
+        headers: {
+            'Content-Type': 'application/xml'
+        },
+        isRaw: true
     };
     context.done();
 }
