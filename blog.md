@@ -88,12 +88,9 @@ Last thing we do is send a response message to the magic vision number with the 
 
 [![FrontEnd](https://img.youtube.com/vi/Zrq0fxZiT0g/hqdefault.jpg)](https://www.youtube.com/watch?v=Zrq0fxZiT0g)
 
-
 **Backend Video**
 
 [![BackEnd](https://img.youtube.com/vi/LvKEBEadM4w/hqdefault.jpg)](https://www.youtube.com/watch?v=LvKEBEadM4w)
-
-
 
 ## Challenges + lessons learned
 
