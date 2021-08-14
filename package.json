@@ -16,7 +16,7 @@
     "node-fetch": "^2.6.1",
     "parse-multipart": "^1.0.4",
     "querystring": "^0.2.1",
-    "twilio": "^3.66.1"
+    "twilio": "^3.67.0"
   },
   "devDependencies": {}
 }
