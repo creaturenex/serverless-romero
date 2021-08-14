@@ -84,13 +84,16 @@ We return the relevant card information and parse the card image, prices and a l
 
 Last thing we do is send a response message to the magic vision number with the appropriate variables passed in. This accomplished with the twilio package and the `Message Response()` function.
 
-**Frontend**
+**Frontend Video**
 
-![Frontend](https://www.youtube.com/watch?v=Zrq0fxZiT0g&t=1s)
+[![FrontEnd](https://img.youtube.com/vi/Zrq0fxZiT0g/hqdefault.jpg)](https://www.youtube.com/watch?v=Zrq0fxZiT0g)
 
-**Backend**
 
-![Backend](https://www.youtube.com/watch?v=LvKEBEadM4w)
+**Backend Video**
+
+[![BackEnd](https://img.youtube.com/vi/LvKEBEadM4w/hqdefault.jpg)](https://www.youtube.com/watch?v=LvKEBEadM4w)
+
+
 
 ## Challenges + lessons learned
 
