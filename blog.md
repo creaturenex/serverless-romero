@@ -88,18 +88,30 @@ Last thing we do is send a response message to the magic vision number with the 
 
 ![Frontend](https://www.youtube.com/watch?v=Zrq0fxZiT0g&t=1s)
 
-
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/enMumwvLAug" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
-
-
 **Backend**
 
-  <iframe src="https://www.youtube.com/watch?v=LvKEBEadM4w" frameborder="0" allowfullscreen="true"> </iframe>
-
-![Backend]()
+![Backend](https://www.youtube.com/watch?v=LvKEBEadM4w)
 
 ## Challenges + lessons learned
 
+One of the biggest issues I had was dealing with returning the result of the image text analysis.
+
+I tested that the API was actually working using postman. The request was working but in my code it was not. Part of the issue was that the documentation for the computer vision api did not mention that I need to iterate through the API until the analysis was complete. I read that an iteration was required in another document. I informed Microsoft about their document issue with the specific example they gave.
+
+Once I discovered the issue, I tried to implement a solution that created a new promise after fetching the API multiple times. For whatever reason the Twilio message could not deal with the new promise. I want to follow up on this to get a better understanding of using async/await commands and interacting with promises.
+
+The solution I devised uses measure time and delays the command a specific amount of time. In addition we iterate over this 5 times incase the analysis is not complete the first few times. Lastly we break out of the loop is the text is successfully return.
+
+Another major learning point is dealing with JSON objects and JSON-like objects to parse information from. For the most part it was easy to access the data but depending on the response type I had to find an appropriate method to get the requested information.
+
+The one where I struggled to parse was the `operation-location` This was location of the analysis and I spent maybe a day trying to get that parameter out. I reached out to my peer Ganning for help. In the end just talking it out with him, cause me to find the solution.
+
 ## Thanks and Acknowledgements
+
+Over all I learned so much from the Bit Project Serverless Camp. I wish Magic Vision could incorporate everything I learned but sometimes it makes more practical sense not to implement a feature to use less resources if it will accomplish the same thing.
+
+I also want to thank my mentor Nočnica Fee from New Relic. She gave me the best personal and career advice. Her conference public speak skills are great and her trust in my skills gave me the confidence I required. She was also extremely confident in my skill which also an Ego Boost!
+
+Lastly I wanna thanks my peers. I learn so much from asking my question and their response. In turn, I learned as well when I would help answer their questions. Spending time commiserating over issues is a great bonding experience and even better when you finally get the code to work!
+
+Thank you for everything!
