@@ -3,12 +3,12 @@
 ## About Me
 **Oscar M Romero**
 
-I am a Software Engineer. I am fascinated by the creativity and fusion of software and hardware. I love learning and I am looking for opportunities to learn and grow with others.
+I am a Software Engineer. I am fascinated by the creativity and fusion of software and hardware. I love learning, and I am looking for opportunities to learn and grow with others.
 
 
 ## The Premise
 
-So you decided to learn how to play magic the gathering. You went out, bought all the card packs and spent over $200. You now have a bunch of duplicates or useless cards. Worse you don't even have a card you want or need to use a tournament. This year total payout for the world championship is $250,000 [World Championship](https://magic.gg/news/magic-world-championship-xxvii-prize-payouts-and-appearance-fees)
+So, you decided to learn how to play magic the gathering. You went out, bought all the card packs, and spent over $200. You now have a bunch of duplicates or useless cards. What's worse is that you don't even have a card you want or need to use in a tournament. This year's total payout for the world championship is $250,000 [World Championship](https://magic.gg/news/magic-world-championship-xxvii-prize-payouts-and-appearance-fees).
 
 Use the power of Magic Vision! Magic Vision allows you to take a photo of a magic card. The image is then analyzed and returns a cleaned up photo, current market value, and a link to buy/sell that card.
 
@@ -49,7 +49,7 @@ Here we set our constants, any required packages, define our endpoints & key. We
 ![setup_code](/project/images/carbon2.png)
 <figcaption align = "center"><b>Fig.3 Twilio Part I</b></figcaption><br>
 
-Here we create a query object from the response body sent via webhook from twilio to our magic vision function. This is created using the package querystring.
+Here we create a query object from the response body sent via webhook from Twilio to our magic vision function. This is created using the package querystring.
 
 After we create the query object we parse out the media url which contains the image sent via text message.
 
@@ -68,21 +68,21 @@ First we call the computer vision API with a POST method using the fetch functio
 
 In the fetch response we select the content-type operation-location. This is the url where the analysis took place. This is assigned to the variable ai_read_url for the second part.
 
-Second, we fetch the computer vision API again with a GET method to return the analysis using the location from the step above. This step requires an iteration because of the time it take to perform the analysis. This is were the sync delay function comes into play. It tells the system to wait awhile before fetching. It does this 5 times. There is a conditional to break the for loop if the read_Status is successful.
+Second, we fetch the computer vision API again with a GET method to return the analysis using the location from the step above. This step requires an iteration because of the time it takes to perform the analysis. This is were the sync delay function comes into play. It tells the system to wait awhile before fetching. It does this 5 times. There is a conditional to break the for loop if the read_Status is successful.
 
 Last, we just parse the returned text with for the approximate card title and output the message `Probable Card Title`
 
 ![setup_code](/project/images/carbon4.png)
 <figcaption align = "center"><b>Fig.5 Scryfall</b></figcaption><br>
 
-Here we call the Scryfall API with a fetch method. We pass the card title as a query parameter and we use the keyword `fuzzy` to return any image that kind of matches the provided text incase the analysis returns text with errors or extra characters.
+Here we call the Scryfall API with a fetch method. We pass the card title as a query parameter, and we use the keyword `fuzzy` to return any image that kind of matches the provided text incase the analysis returns text with errors or extra characters.
 
-We return the relevant card information and parse the card image, prices and a link to purchase the card.
+We return the relevant card information and parse the card image, prices, and a link to purchase the card.
 
 ![setup_code](/project/images/carbon5.png)
 <figcaption align = "center"><b>Fig.6 Twilio Part II</b></figcaption><br>
 
-Last thing we do is send a response message to the magic vision number with the appropriate variables passed in. This accomplished with the twilio package and the `Message Response()` function.
+The last thing we do is send a response message to the magic vision number with the appropriate variables passed in. This is accomplished with the twilio package and the `Message Response()` function.
 
 **Frontend Video**
 
@@ -96,22 +96,22 @@ Last thing we do is send a response message to the magic vision number with the 
 
 One of the biggest issues I had was dealing with returning the result of the image text analysis.
 
-I tested that the API was actually working using postman. The request was working but in my code it was not. Part of the issue was that the documentation for the computer vision api did not mention that I need to iterate through the API until the analysis was complete. I read that an iteration was required in another document. I informed Microsoft about their document issue with the specific example they gave.
+I tested that the API was actually working using Postman. The request was working but in my code it was not. Part of the issue was that the documentation for the computer vision api did not mention that I need to iterate through the API until the analysis was complete. I read that an iteration was required in another document. I informed Microsoft about their document issue with the specific example they gave.
 
 Once I discovered the issue, I tried to implement a solution that created a new promise after fetching the API multiple times. For whatever reason the Twilio message could not deal with the new promise. I want to follow up on this to get a better understanding of using async/await commands and interacting with promises.
 
-The solution I devised uses measure time and delays the command a specific amount of time. In addition we iterate over this 5 times incase the analysis is not complete the first few times. Lastly we break out of the loop is the text is successfully return.
+The solution I devised uses measure time and delays the command a specific amount of time. In addition, we iterate over this 5 times in case the analysis is not complete the first few times. Lastly we break out of the loop if the text is successfully returned.
 
-Another major learning point is dealing with JSON objects and JSON-like objects to parse information from. For the most part it was easy to access the data but depending on the response type I had to find an appropriate method to get the requested information.
+Another major learning point is dealing with JSON objects and JSON-like objects to parse information. For the most part it was easy to access the data. However, depending on the response type, I had to find an appropriate method to get the requested information.
 
-The one where I struggled to parse was the `operation-location` This was location of the analysis and I spent maybe a day trying to get that parameter out. I reached out to my peer Ganning for help. In the end just talking it out with him, cause me to find the solution.
+The one where I struggled to parse was the `operation-location`. This was the location of the analysis, and I spent most of a day trying to get that parameter out. I reached out to my peer, Ganning, for help. In the end, just talking it out with him caused me to find the solution.
 
 ## Thanks and Acknowledgements
 
-Over all I learned so much from the Bit Project Serverless Camp. I wish Magic Vision could incorporate everything I learned but sometimes it makes more practical sense not to implement a feature to use less resources if it will accomplish the same thing.
+Over all, I learned so much from the Bit Project Serverless Camp. I wish Magic Vision could incorporate everything I learned. However, sometimes it makes more practical sense not to implement a feature in order to use less resources if it will accomplish the same thing.
 
-I also want to thank my mentor Nočnica Fee from New Relic. She gave me the best personal and career advice. Her conference public speak skills are great and her trust in my skills gave me the confidence I required. She was also extremely confident in my skill which also an Ego Boost!
+I also want to thank my mentor, Nočnica Fee, from New Relic. She gave me the best personal and career advice. Her conference public speaking skills are great, and her trust in my skills gave me the confidence I required. She was also extremely confident in my skills which was also an Ego Boost!
 
-Lastly I wanna thanks my peers. I learn so much from asking my question and their response. In turn, I learned as well when I would help answer their questions. Spending time commiserating over issues is a great bonding experience and even better when you finally get the code to work!
+Lastly, I wanna thank my peers. I learned so much from asking questions and receiving their responses. Also, when I would help answer their questions, I learned as well. Spending time commiserating over issues is a great bonding experience and it is even better when you finally get the code to work!
 
 Thank you for everything!
